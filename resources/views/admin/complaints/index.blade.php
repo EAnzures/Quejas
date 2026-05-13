@@ -14,8 +14,6 @@
             <p class="muted">{{ auth()->user()->name }} - Administrador</p>
         </div>
         <div class="nav-actions">
-            <a class="ghost-button" href="{{ route('admin.complaints.index') }}">Todas las quejas</a>
-            <a class="ghost-button" href="{{ route('home') }}">Ver portal</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="ghost-button" type="submit">Cerrar sesion</button>

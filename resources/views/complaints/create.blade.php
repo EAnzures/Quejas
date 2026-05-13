@@ -114,7 +114,7 @@
                         @error('incident_month')<p class="error">{{ $message }}</p>@enderror
                     </div>
                     <div class="field">
-                        <label for="incident_year">Anio</label>
+                        <label for="incident_year">Año</label>
                         <input id="incident_year" name="incident_year" type="number" min="2000" max="2100" value="{{ old('incident_year') }}">
                         @error('incident_year')<p class="error">{{ $message }}</p>@enderror
                     </div>
