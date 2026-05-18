@@ -91,13 +91,19 @@ class ComplaintController extends Controller
             'responded_by' => Auth::id(),
         ]);
 
-        Mail::to($complaint->email)->send(
-            new ComplaintResponseMail($complaint, $data['response'])
-        );
+        try {
+            Mail::to($complaint->email)->send(
+                new ComplaintResponseMail($complaint, $data['response'])
+            );
+            $flash = ['success' => 'La respuesta fue guardada y el correo fue enviado.'];
+        } catch (\Throwable $e) {
+            \Log::error('Error enviando correo de respuesta: ' . $e->getMessage());
+            $flash = ['warning' => 'La respuesta fue guardada, pero no se pudo enviar el correo: ' . $e->getMessage()];
+        }
 
         return redirect()
             ->route('admin.complaints.index')
-            ->with('success', 'La respuesta fue enviada al correo del usuario.');
+            ->with($flash);
     }
 
     public function destroy(Complaint $complaint)

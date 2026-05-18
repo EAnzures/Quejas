@@ -51,6 +51,10 @@
         <div class="notice">{{ session('success') }}</div>
     @endif
 
+    @if(session('warning'))
+        <div class="notice" style="background:#fff3cd;color:#856404;border-color:#ffc107;">{{ session('warning') }}</div>
+    @endif
+
     @if($complaints->isEmpty())
         <div class="empty-state">No hay quejas registradas.</div>
     @else
