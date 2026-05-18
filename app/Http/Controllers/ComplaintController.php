@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ComplaintResponseMail;
+use App\Mail\BrevoMailer;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
@@ -92,8 +91,15 @@ class ComplaintController extends Controller
         ]);
 
         try {
-            Mail::to($complaint->email)->send(
-                new ComplaintResponseMail($complaint, $data['response'])
+            $html = view('emails.complaint-response', [
+                'complaint'    => $complaint,
+                'responseText' => $data['response'],
+            ])->render();
+
+            BrevoMailer::send(
+                $complaint->email,
+                'Respuesta a su denuncia — Folio #' . $complaint->id,
+                $html,
             );
             $flash = ['success' => 'La respuesta fue guardada y el correo fue enviado.'];
         } catch (\Throwable $e) {
