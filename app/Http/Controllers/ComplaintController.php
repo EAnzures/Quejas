@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ComplaintResponseMail;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,11 +91,9 @@ class ComplaintController extends Controller
             'responded_by' => Auth::id(),
         ]);
 
-        Mail::raw($data['response'], function ($message) use ($complaint) {
-            $message
-                ->to($complaint->email, $complaint->name)
-                ->subject('Respuesta a su queja');
-        });
+        Mail::to($complaint->email)->send(
+            new ComplaintResponseMail($complaint, $data['response'])
+        );
 
         return redirect()
             ->route('admin.complaints.index')
