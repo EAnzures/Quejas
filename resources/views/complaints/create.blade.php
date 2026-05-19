@@ -55,14 +55,19 @@
                 @php
                     $selectedAreas = old('areas', []);
                     $areas = [
-                        'Presidencia Municipal',
-                        'Secretaria del Ayuntamiento',
-                        'Secretaria de Gobernacion',
-                        'Unidad de Transparencia',
+                        'Presidencia',
+                        'Cabildo',
+                        'Secretaría del ayuntamiento',
                         'Tesoreria Municipal',
-                        'Contraloria Municipal',
-                        'Seguridad Publica y Transito',
-                        'Sistema DIF Municipal',
+                        'Contraloria',
+                        'Obras publicas',
+                        'Registro civil',
+                        'Unidad de transparencia',
+                        'Seguridad publica',
+                        'DIF',
+                        'Servicios publicos',
+                        'Desarrollo rural',
+                        'Recursos humanos',
                     ];
                 @endphp
                 <div class="areas-grid">
