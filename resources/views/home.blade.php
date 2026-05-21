@@ -17,7 +17,10 @@
         <div class="welcome-block">
             <h2>Bienvenido al Portal de Atencion Ciudadana</h2>
             <p>Utiliza este portal para reportar incidencias, sugerencias o presentar quejas relacionadas con el servicio público en Acateno.</p>
-            <a class="button home-action" href="{{ route('complaints.index') }}">Iniciar Tramite de Queja</a>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a class="button home-action" href="{{ route('complaints.index') }}">Iniciar Tramite de Queja</a>
+                <a class="button home-action" href="{{ route('complaints.survey') }}">Encuesta de Satisfacción</a>
+            </div>
         </div>
     </section>
 @endsection
