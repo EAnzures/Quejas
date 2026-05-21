@@ -541,7 +541,7 @@
                 <img class="seal" src="{{ asset('images/logo.jpeg') }}" alt="Logo Acateno">
                 <div class="header-copy">
                     <h1>H. Ayuntamiento de Acateno</h1>
-                    <p>Portal de Transparencia y Denuncia Ciudadana</p>
+                    <p>Portal de Transparencia y Quejas Ciudadanas</p>
                 </div>
                 <img class="seal" src="{{ asset('images/logo2.jpeg') }}" alt="Logo institucional">
             </header>

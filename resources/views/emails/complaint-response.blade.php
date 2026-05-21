@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respuesta a su denuncia</title>
+    <title>Respuesta a su queja</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; }
@@ -25,7 +25,7 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <h1>Sistema de Denuncias</h1>
+            <h1>Sistema de Quejas</h1>
             <p>Respuesta oficial a su reporte</p>
         </div>
 
@@ -35,7 +35,7 @@
             <p>Estimado/a ciudadano/a,</p>
             <br>
             <p>
-                Hemos revisado su denuncia registrada en nuestro sistema y a continuación le compartimos la respuesta por parte de la administración:
+                Hemos revisado su queja registrada en nuestro sistema y a continuación le compartimos la respuesta por parte de la administración:
             </p>
 
             <div class="response-box">
@@ -63,7 +63,7 @@
 
         <div class="footer">
             <p>Este correo fue generado automáticamente, por favor no responda a este mensaje.</p>
-            <p style="margin-top: 4px;">{{ config('app.name') }} &mdash; Sistema de Denuncias Ciudadanas</p>
+            <p style="margin-top: 4px;">{{ config('app.name') }} &mdash; Sistema de Quejas Ciudadanas</p>
         </div>
     </div>
 </body>

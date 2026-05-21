@@ -43,7 +43,7 @@
     <div class="topbar">
         <div>
             <h2 class="section-title">Todas las quejas realizadas</h2>
-            <p class="muted">Consulta el detalle completo de cada denuncia registrada.</p>
+            <p class="muted">Consulta el detalle completo de cada queja registrada.</p>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
                 <article class="panel">
                     <div class="complaint-head">
                         <div>
-                            <strong>#{{ $complaint->id }} - {{ $complaint->anonymous === 'SI' ? 'Denuncia anonima' : 'Denuncia ciudadana' }}</strong>
+                            <strong>#{{ $complaint->id }} - {{ $complaint->anonymous === 'SI' ? 'Queja anónima' : 'Queja ciudadana' }}</strong>
                             <p class="muted">Registrada el {{ $complaint->created_at->format('d/m/Y H:i') }}</p>
                             <p class="category">{{ $complaint->category }}</p>
                         </div>

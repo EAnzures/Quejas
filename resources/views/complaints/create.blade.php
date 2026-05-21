@@ -1,10 +1,10 @@
-@extends('layouts.app', ['title' => 'Formulario de Denuncia'])
+@extends('layouts.app', ['title' => 'Formulario de Queja'])
 
 @section('content')
     <div class="topbar">
         <div>
-            <h2 class="section-title">Formulario de Denuncia</h2>
-            <p class="muted">Registra tu denuncia con los datos necesarios para darle seguimiento.</p>
+            <h2 class="section-title">Formulario de Queja</h2>
+            <p class="muted">Registra tu queja con los datos necesarios para darle seguimiento.</p>
         </div>
         <div class="nav-actions">
             <a class="ghost-button" href="{{ route('home') }}">Inicio</a>
@@ -23,7 +23,7 @@
 
                 <h3 class="form-section-title">1. Identidad</h3>
                 <div class="field">
-                    <span class="field-label">Desea que su denuncia sea anonima?</span>
+                    <span class="field-label">Desea que su queja sea anónima?</span>
                     <div class="radio-row">
                         <label class="radio-option">
                             <input type="radio" name="anonymous" value="SI" {{ old('anonymous') === 'SI' ? 'checked' : '' }} required>
@@ -37,7 +37,12 @@
                     @error('anonymous')<p class="error">{{ $message }}</p>@enderror
                 </div>
 
-                <h3 class="form-section-title">2. Datos del Denunciante</h3>
+                <h3 class="form-section-title">2. Datos del Quejante</h3>
+                <div class="field" id="full-name-field" style="display: none;">
+                    <label for="full_name">Nombre completo</label>
+                    <input id="full_name" name="full_name" type="text" value="{{ old('full_name') }}">
+                    @error('full_name')<p class="error">{{ $message }}</p>@enderror
+                </div>
                 <div class="grid-2">
                     <div class="field">
                         <label for="email">Correo</label>
@@ -169,8 +174,31 @@
                     @error('attachments.*')<p class="error">{{ $message }}</p>@enderror
                 </div>
 
-                <button type="submit" class="button">Registrar Denuncia</button>
+                <button type="submit" class="button">Registrar Queja</button>
             </form>
         </section>
     </div>
+    <script>
+        (function(){
+            const radios = document.querySelectorAll('input[name="anonymous"]');
+            const fullNameField = document.getElementById('full-name-field');
+            const fullNameInput = document.getElementById('full_name');
+
+            function update() {
+                const selected = document.querySelector('input[name="anonymous"]:checked');
+                if(!selected) return;
+                if(selected.value === 'NO'){
+                    fullNameField.style.display = 'block';
+                    if(fullNameInput) fullNameInput.required = true;
+                } else {
+                    fullNameField.style.display = 'none';
+                    if(fullNameInput) { fullNameInput.required = false; fullNameInput.value = ''; }
+                }
+            }
+
+            radios.forEach(r => r.addEventListener('change', update));
+            document.addEventListener('DOMContentLoaded', update);
+            update();
+        })();
+    </script>
 @endsection
