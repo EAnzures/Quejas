@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ComplaintController::class, 'index'])->name('home');
 Route::get('/tramite-denuncia', [ComplaintController::class, 'create'])->name('complaints.index');
 Route::post('/quejas', [ComplaintController::class, 'store'])->name('complaints.store');
-Route::get('/encuesta', function () {
-    return view('complaints.survey');
-})->name('complaints.survey');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

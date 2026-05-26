@@ -59,6 +59,19 @@
             <p style="font-size: 13px; color: #888;">
                 Si tiene dudas adicionales, puede comunicarse con la administración directamente.
             </p>
+
+            <div style="margin-top: 28px; padding: 20px 24px; background-color: #f0f4ff; border-radius: 6px; border: 1px solid #c7d5f5; text-align: center;">
+                <p style="font-size: 14px; font-weight: 700; color: #1a3a5c; margin-bottom: 10px;">
+                    Su opinión nos importa
+                </p>
+                <p style="font-size: 13px; color: #555; margin-bottom: 16px;">
+                    Le invitamos a compartir su experiencia con el servicio recibido completando nuestra encuesta de satisfacción:
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeMe-z7f1B3ToGzoFoyzM8N0OLW0cfCN3eHBN9YQu0wECGzKg/viewform?usp=publish-editor"
+                   style="display: inline-block; background-color: #1a3a5c; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 700;">
+                    Responder encuesta de satisfacción
+                </a>
+            </div>
         </div>
 
         <div class="footer">

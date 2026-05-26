@@ -36,13 +36,13 @@
                     </div>
                     @error('anonymous')<p class="error">{{ $message }}</p>@enderror
                 </div>
-
-                <h3 class="form-section-title">2. Datos del Quejante</h3>
                 <div class="field" id="full-name-field" style="display: none;">
                     <label for="full_name">Nombre completo</label>
                     <input id="full_name" name="full_name" type="text" value="{{ old('full_name') }}">
                     @error('full_name')<p class="error">{{ $message }}</p>@enderror
                 </div>
+
+                <h3 class="form-section-title">2. Datos del Ciudadano</h3>
                 <div class="grid-2">
                     <div class="field">
                         <label for="email">Correo</label>
@@ -92,7 +92,7 @@
                     @error('other_area')<p class="error">{{ $message }}</p>@enderror
                 </div>
 
-                <h3 class="form-section-title">4. Datos del Servidor Publico Denunciado</h3>
+                <h3 class="form-section-title">4. Datos del Servidor Público</h3>
                 <div class="grid-2">
                     <div class="field">
                         <label for="public_servant_name">Nombre del Servidor</label>
