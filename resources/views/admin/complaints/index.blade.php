@@ -64,7 +64,7 @@
                     <div class="complaint-head">
                         <div>
                             <strong>#{{ $complaint->id }} - {{ $complaint->anonymous === 'SI' ? 'Queja anónima' : 'Queja ciudadana' }}</strong>
-                            <p class="muted">Registrada el {{ $complaint->created_at->format('d/m/Y H:i') }}</p>
+                            <p class="muted">Registrada el {{ $complaint->created_at->tz('America/Mexico_City')->format('d/m/Y H:i') }}</p>
                             <p class="category">{{ $complaint->category }}</p>
                         </div>
                         <span class="status {{ $complaint->status === 'Respondida' ? 'resolved' : '' }}">{{ $complaint->status }}</span>
@@ -132,7 +132,7 @@
                     @if(! empty($complaint->attachments))
                         <div class="attachments">
                             @foreach($complaint->attachments as $attachment)
-                                <a class="attachment-link" href="{{ asset('storage/'.$attachment['path']) }}" target="_blank" rel="noreferrer">
+                                <a class="attachment-link" href="{{ \Illuminate\Support\Facades\Storage::url($attachment['path']) }}" target="_blank" rel="noreferrer">
                                     {{ $attachment['type'] === 'video' ? 'Video' : ($attachment['type'] === 'pdf' ? 'PDF' : 'Imagen') }}: {{ $attachment['original_name'] }}
                                 </a>
                             @endforeach
@@ -144,7 +144,7 @@
                             <strong>Respuesta enviada</strong>
                             <p class="message">{{ $complaint->response }}</p>
                             @if($complaint->responded_at)
-                                <p class="muted">Enviada el {{ $complaint->responded_at->format('d/m/Y H:i') }} por {{ optional($complaint->responder)->name ?? 'Administrador' }}</p>
+                                <p class="muted">Enviada el {{ $complaint->responded_at->tz('America/Mexico_City')->format('d/m/Y H:i') }} por {{ optional($complaint->responder)->name ?? 'Administrador' }}</p>
                             @endif
                         </div>
                     @endif

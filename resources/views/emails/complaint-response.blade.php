@@ -45,7 +45,7 @@
             <div class="info-row">
                 <p>
                     <span>Fecha de respuesta:</span>
-                    {{ now()->format('d/m/Y \a \l\a\s H:i') }} hrs
+                    {{ now('America/Mexico_City')->format('d/m/Y \a \l\a\s H:i') }} hrs
                 </p>
                 @if($complaint->responded_by && $complaint->responder)
                 <p style="margin-top: 6px;">
