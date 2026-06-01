@@ -118,7 +118,7 @@ class ComplaintController extends Controller
 
         foreach ($complaint->attachments ?? [] as $attachment) {
             if (! empty($attachment['path'])) {
-                Storage::disk('public')->delete($attachment['path']);
+                Storage::disk(config('filesystems.default'))->delete($attachment['path']);
             }
         }
 
@@ -135,8 +135,11 @@ class ComplaintController extends Controller
             return [];
         }
 
+        \Log::info('[S3-DEBUG] Disco activo: ' . config('filesystems.default'));
+
         return collect($request->file('attachments'))->map(function ($file) {
-            $path = $file->store('complaint-attachments', 'public');
+            $path = $file->store('complaint-attachments', config('filesystems.default'));
+            \Log::info('[S3-DEBUG] Path resultado: ' . ($path ?: 'FALSE'));
             $mime = (string) $file->getMimeType();
 
             return [
