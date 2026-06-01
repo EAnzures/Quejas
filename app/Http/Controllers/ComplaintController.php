@@ -70,18 +70,9 @@ class ComplaintController extends Controller
     {
         abort_unless(Auth::user()->role === 'admin', 403);
 
-        $complaints = Complaint::with('responder')->where('status', 'Nueva')->latest()->get();
+        $complaints = Complaint::with('responder')->latest()->get();
 
         return view('admin.complaints.index', compact('complaints'));
-    }
-
-    public function adminAnswered()
-    {
-        abort_unless(Auth::user()->role === 'admin', 403);
-
-        $complaints = Complaint::with('responder')->where('status', 'Respondida')->latest()->get();
-
-        return view('admin.complaints.answered', compact('complaints'));
     }
 
     public function respond(Request $request, Complaint $complaint)

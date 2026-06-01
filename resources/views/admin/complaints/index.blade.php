@@ -2,9 +2,10 @@
 
 @section('content')
     @php
-        $totalPending = $complaints->count();
+        $totalComplaints = $complaints->count();
+        $newComplaints = $complaints->where('status', 'Nueva')->count();
+        $answeredComplaints = $complaints->where('status', 'Respondida')->count();
         $withAttachments = $complaints->filter(fn ($complaint) => ! empty($complaint->attachments))->count();
-        $totalAnswered = \App\Models\Complaint::where('status', 'Respondida')->count();
     @endphp
 
     <header class="topbar">
@@ -13,7 +14,6 @@
             <p class="muted">{{ auth()->user()->name }} - Administrador</p>
         </div>
         <div class="nav-actions">
-            <a class="ghost-button" href="{{ route('admin.complaints.answered') }}">Historial de respondidas</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="ghost-button" type="submit">Cerrar sesion</button>
@@ -23,11 +23,15 @@
 
     <section class="admin-summary" aria-label="Resumen de quejas">
         <div class="summary-item">
-            <strong>{{ $totalPending }}</strong>
-            <span>Sin responder</span>
+            <strong>{{ $totalComplaints }}</strong>
+            <span>Total de quejas</span>
         </div>
         <div class="summary-item">
-            <strong>{{ $totalAnswered }}</strong>
+            <strong>{{ $newComplaints }}</strong>
+            <span>Nuevas</span>
+        </div>
+        <div class="summary-item">
+            <strong>{{ $answeredComplaints }}</strong>
             <span>Respondidas</span>
         </div>
         <div class="summary-item">
@@ -38,8 +42,8 @@
 
     <div class="topbar">
         <div>
-            <h2 class="section-title">Quejas pendientes de respuesta</h2>
-            <p class="muted">Las quejas respondidas se archivan en el historial.</p>
+            <h2 class="section-title">Todas las quejas realizadas</h2>
+            <p class="muted">Consulta el detalle completo de cada queja registrada.</p>
         </div>
     </div>
 
@@ -52,7 +56,7 @@
     @endif
 
     @if($complaints->isEmpty())
-        <div class="empty-state">No hay quejas pendientes de respuesta.</div>
+        <div class="empty-state">No hay quejas registradas.</div>
     @else
         <div class="complaint-list">
             @foreach($complaints as $complaint)
