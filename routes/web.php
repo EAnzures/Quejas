@@ -17,7 +17,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin/quejas', [ComplaintController::class, 'adminIndex'])->name('admin.complaints.index');
-    Route::get('/admin/quejas/respondidas', [ComplaintController::class, 'adminAnswered'])->name('admin.complaints.answered');
     Route::post('/admin/quejas/{complaint}/responder', [ComplaintController::class, 'respond'])->name('admin.complaints.respond');
     Route::delete('/admin/quejas/{complaint}', [ComplaintController::class, 'destroy'])->name('admin.complaints.destroy');
 });
