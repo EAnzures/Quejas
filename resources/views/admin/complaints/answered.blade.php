@@ -1,19 +1,13 @@
-@extends('layouts.app', ['title' => 'Administrar quejas'])
+@extends('layouts.app', ['title' => 'Historial de quejas respondidas'])
 
 @section('content')
-    @php
-        $totalPending = $complaints->count();
-        $withAttachments = $complaints->filter(fn ($complaint) => ! empty($complaint->attachments))->count();
-        $totalAnswered = \App\Models\Complaint::where('status', 'Respondida')->count();
-    @endphp
-
     <header class="topbar">
         <div>
-            <h2 class="section-title">Panel Administrativo</h2>
+            <h2 class="section-title">Historial de respondidas</h2>
             <p class="muted">{{ auth()->user()->name }} - Administrador</p>
         </div>
         <div class="nav-actions">
-            <a class="ghost-button" href="{{ route('admin.complaints.answered') }}">Historial de respondidas</a>
+            <a class="ghost-button" href="{{ route('admin.complaints.index') }}">Quejas pendientes</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="ghost-button" type="submit">Cerrar sesion</button>
@@ -21,38 +15,19 @@
         </div>
     </header>
 
-    <section class="admin-summary" aria-label="Resumen de quejas">
-        <div class="summary-item">
-            <strong>{{ $totalPending }}</strong>
-            <span>Sin responder</span>
-        </div>
-        <div class="summary-item">
-            <strong>{{ $totalAnswered }}</strong>
-            <span>Respondidas</span>
-        </div>
-        <div class="summary-item">
-            <strong>{{ $withAttachments }}</strong>
-            <span>Con evidencia</span>
-        </div>
-    </section>
-
-    <div class="topbar">
-        <div>
-            <h2 class="section-title">Quejas pendientes de respuesta</h2>
-            <p class="muted">Las quejas respondidas se archivan en el historial.</p>
-        </div>
-    </div>
-
     @if(session('success'))
         <div class="notice">{{ session('success') }}</div>
     @endif
 
-    @if(session('warning'))
-        <div class="notice" style="background:#fff3cd;color:#856404;border-color:#ffc107;">{{ session('warning') }}</div>
-    @endif
+    <div class="topbar">
+        <div>
+            <h2 class="section-title">Quejas ya respondidas</h2>
+            <p class="muted">{{ $complaints->count() }} queja(s) en el historial.</p>
+        </div>
+    </div>
 
     @if($complaints->isEmpty())
-        <div class="empty-state">No hay quejas pendientes de respuesta.</div>
+        <div class="empty-state">No hay quejas respondidas aún.</div>
     @else
         <div class="complaint-list">
             @foreach($complaints as $complaint)
@@ -63,7 +38,7 @@
                             <p class="muted">Registrada el {{ $complaint->created_at->tz('America/Mexico_City')->format('d/m/Y H:i') }}</p>
                             <p class="category">{{ $complaint->category }}</p>
                         </div>
-                        <span class="status {{ $complaint->status === 'Respondida' ? 'resolved' : '' }}">{{ $complaint->status }}</span>
+                        <span class="status resolved">Respondida</span>
                     </div>
 
                     <div class="detail-grid">
@@ -135,25 +110,13 @@
                         </div>
                     @endif
 
-                    @if($complaint->response)
-                        <div class="response-box">
-                            <strong>Respuesta enviada</strong>
-                            <p class="message">{{ $complaint->response }}</p>
-                            @if($complaint->responded_at)
-                                <p class="muted">Enviada el {{ $complaint->responded_at->tz('America/Mexico_City')->format('d/m/Y H:i') }} por {{ optional($complaint->responder)->name ?? 'Administrador' }}</p>
-                            @endif
-                        </div>
-                    @endif
-
-                    <form action="{{ route('admin.complaints.respond', $complaint) }}" method="POST" style="margin-top: 18px;">
-                        @csrf
-                        <div class="field">
-                            <label for="response-{{ $complaint->id }}">Responder al correo del usuario</label>
-                            <textarea id="response-{{ $complaint->id }}" name="response" rows="4" required>{{ old('response', $complaint->response) }}</textarea>
-                            @error('response')<p class="error">{{ $message }}</p>@enderror
-                        </div>
-                        <button class="button" type="submit">Enviar respuesta</button>
-                    </form>
+                    <div class="response-box">
+                        <strong>Respuesta enviada</strong>
+                        <p class="message">{{ $complaint->response }}</p>
+                        @if($complaint->responded_at)
+                            <p class="muted">Enviada el {{ $complaint->responded_at->tz('America/Mexico_City')->format('d/m/Y H:i') }} por {{ optional($complaint->responder)->name ?? 'Administrador' }}</p>
+                        @endif
+                    </div>
 
                     <form action="{{ route('admin.complaints.destroy', $complaint) }}" method="POST" style="margin-top: 12px;" onsubmit="return confirm('¿Eliminar esta queja definitivamente?');">
                         @csrf
