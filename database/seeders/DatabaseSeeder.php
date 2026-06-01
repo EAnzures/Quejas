@@ -17,16 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::updateOrCreate(['email' => 'admin@example.com'], [
+        User::updateOrCreate(['email' => 'administracion@acateno.gob.mx'], [
             'name' => 'Administrador',
-            'password' => 'password',
+            'password' => 'admin123',
             'role' => 'admin',
-        ]);
-
-        User::updateOrCreate(['email' => 'usuario@example.com'], [
-            'name' => 'Usuario',
-            'password' => 'password',
-            'role' => 'user',
         ]);
     }
 }
