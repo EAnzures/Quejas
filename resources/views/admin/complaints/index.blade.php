@@ -132,7 +132,7 @@
                     @if(! empty($complaint->attachments))
                         <div class="attachments">
                             @foreach($complaint->attachments as $attachment)
-                                <a class="attachment-link" href="{{ \Illuminate\Support\Facades\Storage::url($attachment['path']) }}" target="_blank" rel="noreferrer">
+                                <a class="attachment-link" href="{{ config('filesystems.default') === 's3' ? \Illuminate\Support\Facades\Storage::temporaryUrl($attachment['path'], now()->addHours(6)) : \Illuminate\Support\Facades\Storage::disk('public')->url($attachment['path']) }}" target="_blank" rel="noreferrer">
                                     {{ $attachment['type'] === 'video' ? 'Video' : ($attachment['type'] === 'pdf' ? 'PDF' : 'Imagen') }}: {{ $attachment['original_name'] }}
                                 </a>
                             @endforeach
